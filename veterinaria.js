@@ -1,5 +1,5 @@
-const fs = require('fs');
-const readline = require('readline');
+import * as fs from 'node:fs';
+import * as readline from 'node:readline';
 
 const clienteFile = 'cliente.json';
 const proveedorFile = 'proveedor.json';

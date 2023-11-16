@@ -2,9 +2,6 @@ import * as fs from "node:fs";
 import * as rs from "readline-sync";
 import { Mascotas } from "./mascotas";
 
-
-
-
 export class Paciente {
     private pacientes: {
         id: string;
@@ -13,10 +10,20 @@ export class Paciente {
         idCliente: string;
     }[] = [];
 
-    private jsonFilePath: string = 'pacientes.json';
+    pacienteFilePath: string = 'pacientes.json';
 
-    private guardarPacientesEnArchivo(): void {
-        fs.writeFileSync(this.jsonFilePath, JSON.stringify(this.pacientes, null, 2));
+
+    cargarPacientes() {
+        try {
+            const data = fs.readFileSync(this.pacienteFilePath, 'utf8');
+            return JSON.parse(data);
+        } catch (error) {
+            return [];
+        }
+    }
+
+    guardarPacientesEnArchivo(paciente): void {
+        fs.writeFileSync(this.pacienteFilePath, JSON.stringify(this.pacientes, null, 2));
     };
 
     private generarIdUnico(): string {
@@ -47,7 +54,7 @@ export class Paciente {
             idCliente,
         }
         this.pacientes.push(nuevoPaciente);
-        this.guardarPacientesEnArchivo();
+        this.guardarPacientesEnArchivo(nuevoPaciente);
     };
 
     modificarPacienteId(idPaciente: string,) {
@@ -69,7 +76,7 @@ export class Paciente {
                 this.pacientes[pacienteIndex].especie = "exotica";
             }
 
-            this.guardarPacientesEnArchivo();
+            this.guardarPacientesEnArchivo(pacienteIndex);
             console.log('Paciente modificado correctamente.');
         } else {
             console.log("No se encontró al paciente.");
@@ -85,7 +92,7 @@ export class Paciente {
             console.log("Borrar paciente.");
 
             this.pacientes = this.pacientes.filter(p => p.id !== idPaciente);
-            this.guardarPacientesEnArchivo();
+            this.guardarPacientesEnArchivo(pacienteIndex);
             console.log('Paciente eliminado correctamente.');
         } else {
             console.log("No se encontró al paciente.");
@@ -100,5 +107,11 @@ mascota1.altaPaciente("", "", "");
 console.log(mascota1)
 mascota1.modificarPacienteId("");
 console.log(mascota1)
-mascota1.bajaPacienteId("");
+// mascota1.bajaPacienteId("");
 console.log(mascota1);
+const mascota2 = new Paciente();
+mascota2.altaPaciente("", "", "");
+console.log(mascota2);
+const mascota3 = new Paciente();
+mascota3.altaPaciente("", "", "");
+console.log(mascota3);
