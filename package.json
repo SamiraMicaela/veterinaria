@@ -9,6 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^20.9.0",
+    "fs": "^0.0.1-security",
     "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "@types/readline-sync": "^1.4.7"
   }
 }
