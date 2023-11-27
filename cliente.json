@@ -1,29 +1,9 @@
 [
   {
-    "nombre": "Maria Valenzuela"
-  },
-  {
-    "nombre_apellido": "Marita de la Canal"
-  },
-  {
-    "apellido_nombre": "Sorensen María Florencia"
-  },
-  {
-    "Apellido_Nombre": "Cid Carmen"
-  },
-  {
-    "Apellido_Nombre": "Cid Laura"
-  },
-  {
-    "Apellido_Nombre": "Fus Marcos"
-  },
-  {
-    "Apellido_Nombre": "Peloni Pedro"
-  },
-  {
-    "Apellido_Nombre": ""
-  },
-  {
-    "Apellido_Nombre": "Bava Micaela"
+    "esVIP": false,
+    "numeroVisitas": 0,
+    "idCliente": 838,
+    "nombre": "samira",
+    "telefono": "1111"
   }
 ]
