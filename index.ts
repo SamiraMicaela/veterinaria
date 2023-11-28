@@ -10,13 +10,17 @@ import { funPaciente } from "./pacientes/funPaciente";
 
 const suc01 = new SucursalVeterinaria("San Expedito", "Pedito 123");
 const vet01 = new Veterinaria("lucecita", "lucecita 222");
-const prov01 = new Proveedor("", "");
-const cli01 = new Cliente(0, "", "");
-const paci01 = new Paciente();
+const prov01 = new Proveedor("la mejor pasta base", "2983555666");
 
 suc01.agregarVeterinaria();
 suc01.agregarProveedor();
 suc01.agregarCliente();
 suc01.altaPaciente();
-vet01.id;
-cli01.idCliente;
+suc01.modificarVeterinaria();
+suc01.modificarProveedor();
+suc01.modificarCliente();
+suc01.modificarPacientes();
+suc01.eliminarVeterinaria();
+suc01.eliminarProveedor();
+suc01.eliminarCliente();
+suc01.bajaPaciente();

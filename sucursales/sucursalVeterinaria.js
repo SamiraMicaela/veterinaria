@@ -163,7 +163,7 @@ var SucursalVeterinaria = /** @class */ (function () {
         funProveedor_1.funProveedor.agregarProveedor(this.proveedores);
     };
     ;
-    SucursalVeterinaria.prototype.eliminarProveedor = function (id) {
+    SucursalVeterinaria.prototype.eliminarProveedor = function () {
         console.log("Eliminar proveedor.");
         var idBorrar = rs.questionInt("Ingrese el ID de proveedor que desea eliminar: ");
         var recordIndex = this.proveedores.findIndex(function (proveedores) { return proveedores.id === idBorrar; });
@@ -264,12 +264,13 @@ var SucursalVeterinaria = /** @class */ (function () {
         var idCliente = rs.questionInt("Ingrese el ID del cliente: ");
         var clienteExistente = this.clientes.some(function (p) { return p.idCliente === idCliente; });
         if (clienteExistente) {
+            var id = this.generarIdUnico();
             var especie = rs.question("Que especie es?: ");
             var nombre = rs.question("Cual essu nombre?: ");
             if (especie !== "perro" && especie !== "gato") {
                 especie = "exotica";
             }
-            var nuevoPaciente = new paciente_1.Paciente();
+            var nuevoPaciente = new paciente_1.Paciente(id, nombre, especie, idCliente);
             this.pacientes.push(nuevoPaciente);
             console.log("Paciente creado correctamente.", this.pacientes);
         }
@@ -279,7 +280,42 @@ var SucursalVeterinaria = /** @class */ (function () {
         funPaciente_1.funPaciente.agregarPaciente(this.pacientes);
     };
     ;
-    SucursalVeterinaria.prototype.modificarPPacientes = function () {
+    SucursalVeterinaria.prototype.modificarPacientes = function () {
+        console.log("Modificar paciente.");
+        var id = rs.questionInt("Ingrese el ID del paciente a modificar: ");
+        var pacienteAModificar = this.pacientes.find(function (paciente) { return paciente.id === id; });
+        if (pacienteAModificar) {
+            var nuevoNombre = rs.question("Ingrese el nuevo nombre: ");
+            var nuevaEspecie = rs.question("Ingrese la especie: ");
+            pacienteAModificar.nombre = nuevoNombre;
+            pacienteAModificar.especie = nuevaEspecie;
+            this.pacientes.push(pacienteAModificar);
+            console.log("Paciente modificado correctamente!");
+        }
+        else {
+            console.log("No se encontro el ID del paciente...");
+        }
+        funPaciente_1.funPaciente.agregarPaciente(this.pacientes);
+    };
+    ;
+    SucursalVeterinaria.prototype.bajaPaciente = function () {
+        console.log("Eliminar paciente por ID");
+        var idBorrar = rs.questionInt("Ingrese el ID del paciente a eliminar: ");
+        var recordIndex = this.pacientes.findIndex(function (paciente) { return paciente.id === idBorrar; });
+        if (recordIndex !== -1) {
+            var eliminar = this.pacientes[recordIndex];
+            var confirmacion = rs.keyInYN("Quieres eliminar ".concat(eliminar, "? (Y/N)"));
+            if (confirmacion) {
+                this.pacientes.splice(recordIndex, 1);
+                funPaciente_1.funPaciente.agregarPaciente(this.pacientes);
+            }
+            else {
+                console.log("Eliminacion cancelada. \n");
+            }
+        }
+        else {
+            console.log("Paciente no encontrado...");
+        }
     };
     ;
     return SucursalVeterinaria;

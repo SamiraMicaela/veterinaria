@@ -2,8 +2,15 @@
   {
     "esVIP": false,
     "numeroVisitas": 0,
-    "idCliente": 470,
-    "nombre": "samira",
-    "telefono": "225555"
+    "idCliente": 533,
+    "nombre": "Samira Micaela",
+    "telefono": "123"
+  },
+  {
+    "esVIP": false,
+    "numeroVisitas": 0,
+    "idCliente": 533,
+    "nombre": "Samira Micaela",
+    "telefono": "123"
   }
 ]

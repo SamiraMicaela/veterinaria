@@ -175,7 +175,7 @@ export class SucursalVeterinaria {
     funProveedor.agregarProveedor(this.proveedores);
   };
 
-  eliminarProveedor(id: number): void {
+  eliminarProveedor(): void {
     console.log("Eliminar proveedor.");
     const idBorrar = rs.questionInt("Ingrese el ID de proveedor que desea eliminar: ");
     const recordIndex = this.proveedores.findIndex((proveedores) => proveedores.id === idBorrar);
@@ -280,13 +280,14 @@ export class SucursalVeterinaria {
     const clienteExistente = this.clientes.some(p => p.idCliente === idCliente);
 
     if (clienteExistente) {
+      const id = this.generarIdUnico();
       let especie = rs.question("Que especie es?: ");
-      let nombre = rs.question("Cual essu nombre?: ");
+      const nombre = rs.question("Cual essu nombre?: ");
 
       if (especie !== "perro" && especie !== "gato") {
         especie = "exotica";
       }
-      const nuevoPaciente = new Paciente();
+      const nuevoPaciente = new Paciente(id,nombre,especie,idCliente);
       this.pacientes.push(nuevoPaciente);
 
       console.log("Paciente creado correctamente.", this.pacientes);
@@ -296,10 +297,40 @@ export class SucursalVeterinaria {
     funPaciente.agregarPaciente(this.pacientes);
   };
 
-  modificarPPacientes() {
-
+  modificarPacientes() {
+    console.log("Modificar paciente.");
+    const id = rs.questionInt("Ingrese el ID del paciente a modificar: ");
+    const pacienteAModificar = this.pacientes.find((paciente)=>paciente.id === id);
+    if(pacienteAModificar){
+      const nuevoNombre = rs.question("Ingrese el nuevo nombre: ");
+      let nuevaEspecie = rs.question("Ingrese la especie: ");
+      pacienteAModificar.nombre = nuevoNombre;
+      pacienteAModificar.especie = nuevaEspecie;
+      this.pacientes.push(pacienteAModificar);
+      console.log("Paciente modificado correctamente!");
+    }else{
+      console.log("No se encontro el ID del paciente...");
+    }
+    funPaciente.agregarPaciente(this.pacientes);
   };
 
+  bajaPaciente(){
+    console.log("Eliminar paciente por ID");
+    const idBorrar = rs.questionInt("Ingrese el ID del paciente a eliminar: ");
+    const recordIndex = this.pacientes.findIndex((paciente)=> paciente.id === idBorrar);
+    if(recordIndex !==-1){
+      const eliminar = this.pacientes[recordIndex];
+      const confirmacion = rs.keyInYN(`Quieres eliminar ${eliminar}? (Y/N)`);
+      if(confirmacion){
+        this.pacientes.splice(recordIndex, 1);
+        funPaciente.agregarPaciente(this.pacientes);
+      }else{
+        console.log("Eliminacion cancelada. \n");
+      }
+    }else{
+      console.log("Paciente no encontrado...");
+    }
 
+  };
 }
 

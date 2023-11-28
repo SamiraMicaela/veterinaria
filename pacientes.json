@@ -1,6 +1,16 @@
 [
   {
     "pacienteFilePath": "./pacientes.json",
-    "pacientes": []
+    "id": 766,
+    "nombre": "morita",
+    "especie": "perra",
+    "idCliente": 533
+  },
+  {
+    "pacienteFilePath": "./pacientes.json",
+    "id": 766,
+    "nombre": "morita",
+    "especie": "perra",
+    "idCliente": 533
   }
 ]

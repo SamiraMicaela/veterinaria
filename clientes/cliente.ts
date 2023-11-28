@@ -34,8 +34,8 @@ const nuevoCliente = new Cliente(0, "", "");
 // nuevoCliente.crearCliente();
 
 
-const todosLosClientes = funClientes.leerCliente();
-console.log("Todos los clientes:", todosLosClientes);
+// const todosLosClientes = funClientes.leerCliente();
+// console.log("Todos los clientes:", todosLosClientes);
 
 
 
