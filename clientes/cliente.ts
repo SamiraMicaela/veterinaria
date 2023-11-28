@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import * as rs from "readline-sync";
 import { funClientes } from "./funCliente";
+import { Paciente } from "../pacientes/paciente";
 
 
 export class Cliente {
@@ -10,26 +11,26 @@ export class Cliente {
   esVIP: boolean = false;
   numeroVisitas: number = 0;
 
-  constructor(idCliente:number,nombre: string, telefono: string) {
+  constructor(idCliente: number, nombre: string, telefono: string) {
     this.idCliente = this.generarIdUnico();
     this.nombre = nombre;
     this.telefono = telefono;
   };
-  
- private generarIdUnico(): number {
+
+  private generarIdUnico(): number {
     return Math.floor(Math.random() * 1000) + 1;
   };
-     
-    incrementarVisitas(): void {
+
+  incrementarVisitas(): void {
     this.numeroVisitas++;
     if (this.numeroVisitas >= 5) {
       this.esVIP = true;
     }
-
+      
   };
 }
 
-const nuevoCliente = new Cliente(0,"", "");
+const nuevoCliente = new Cliente(0, "", "");
 // nuevoCliente.crearCliente();
 
 

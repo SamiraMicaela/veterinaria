@@ -36,19 +36,19 @@ export class SucursalVeterinaria {
     return Math.floor(Math.random() * 1000) + 1;
   };
 
-//SUCURSALES
-leerSucursales(){
+  //SUCURSALES
+  leerSucursales() {
 
-};
-//SUCURSALES
+  };
+  //SUCURSALES
 
   // CLIENTE
   leerCliente() {
     try {
-      const leerCliente = fs.readFileSync("./clientes/cliente.json", { encoding: "utf-8" });
+      const leerCliente = funClientes.leerCliente;
 
       if (leerCliente) {
-        this.clientes = JSON.parse(leerCliente);
+
         console.log("Clientes.");
         if (!this.clientes.length) {
           console.log("No se encontraron clientes.");
@@ -67,9 +67,9 @@ leerSucursales(){
   }
   agregarCliente() {
     console.log("Nuevo cliente.");
-    const leerClientes = fs.readFileSync("./clientes/cliente.json", { encoding: "utf-8" });
+    const leerClientes = funClientes.leerCliente;
     if (leerClientes) {
-      this.clientes = JSON.parse(leerClientes);
+
       const idCliente = this.generarIdUnico();
       const nombre = rs.question("Ingrese el nombre: ");
       const telefono = rs.question("Ingrese el numero telefomnico");
@@ -127,9 +127,9 @@ leerSucursales(){
 
   //PROVEEDOR
   leerProvedoores() {
-    const leerProvedoores = fs.readFileSync("./proveedores/proveedor.json", { encoding: "utf-8" });
+    const leerProvedoores = funProveedor.leerProveedor;
     if (leerProvedoores) {
-      this.proveedores = JSON.parse(leerProvedoores);
+
       console.log("Proveedores.");
       if (!this.proveedores.length) {
         console.log("No se encontraron proveedores.");
@@ -144,9 +144,9 @@ leerSucursales(){
 
   agregarProveedor(): void {
     console.log("Nuevo proveedor.");
-    const leerProvedoores = fs.readFileSync("./proveedores/proveedor.json", { encoding: "utf-8" });
+    const leerProvedoores = funProveedor.leerProveedor;
     if (leerProvedoores) {
-      this.proveedores = JSON.parse(leerProvedoores);
+
       const id = this.generarIdUnico();
       const nombre = rs.question("Ingrese el nombre: ");
       const telefono = rs.question("Ingrese el telefono del proveedor: ");
@@ -196,15 +196,15 @@ leerSucursales(){
 
   //VETERINARIA
 
-  leerVeterinaria(){
-    const leerVeterinaria = fs.readFileSync("./veterinas/veterinaria.json", {encoding: "utf-8"});
-    if(leerVeterinaria){
-      this.veterinaria = JSON.parse(leerVeterinaria);
+  leerVeterinaria() {
+    const leerVeterinaria = funVeterinaria.leerVeterinaria;
+    if (leerVeterinaria) {
+
       console.log("VETERINARIAS.");
-      if(!this.veterinaria.length){
+      if (!this.veterinaria.length) {
         console.log("No se encontraron  veterinarias.");
-      } else{
-        this.veterinaria.forEach((veterinaria)=>{
+      } else {
+        this.veterinaria.forEach((veterinaria) => {
           console.log(`ID: ${veterinaria.id}
           NOMBRE: ${veterinaria.nombre}
           DIRECCION: ${veterinaria.direccion}`);
@@ -214,38 +214,38 @@ leerSucursales(){
       console.log("Algo salio mal, volver ahacer el codigo completo yam no doy mas!!!!!");
     }
     console.log("Salio todo bien???????", leerVeterinaria);
-    
+
   };
 
   agregarVeterinaria(): void {
     console.log("Nueva veterinaria.");
-    const leerVeterinaria = fs.readFileSync("./veterinarias/veterinaria.json", {encoding: "utf-8"});
-    if(leerVeterinaria){
-      this.veterinaria = JSON.parse(leerVeterinaria);
+    const leerVeterinaria = funVeterinaria.leerVeterinaria;
+    if (leerVeterinaria) {
+
       const id = this.generarIdUnico();
       const nombre = rs.question("Ingrese el nombre de VETERINARIA: ");
       const direccion = rs.question("Ingrese la direccion");
       const veterinaria = new Veterinaria(nombre, direccion);
       this.veterinaria.push(veterinaria);
       console.log(veterinaria);
-    }else{
+    } else {
       console.log("Intentalo de nuevo.");
     }
     funVeterinaria.agregarVeterinaria(this.veterinaria);
   };
 
-  modificarVeterinaria(){
+  modificarVeterinaria() {
     console.log("Modificar veterinaria.");
     const id = rs.questionInt("Ingrese el ID de la veterinaria a modificar: ");
-    const veterinariaAModificar = this.veterinaria.find((veterinaria)=> veterinaria.id === id);
-    if(veterinariaAModificar){
+    const veterinariaAModificar = this.veterinaria.find((veterinaria) => veterinaria.id === id);
+    if (veterinariaAModificar) {
       const nuevoNombre = rs.question("Ingrese el nuevo nombre: ");
-      const nuevaDireccion= rs.question("Ingrese la nueva direccion: ");
+      const nuevaDireccion = rs.question("Ingrese la nueva direccion: ");
       veterinariaAModificar.nombre = nuevoNombre;
       veterinariaAModificar.direccion = nuevaDireccion;
       this.veterinaria.push(veterinariaAModificar);
       console.log("Veterinaria modificada correctamente!");
-    } else{
+    } else {
       console.log("ID no encontrado");
     }
 
@@ -256,14 +256,14 @@ leerSucursales(){
   eliminarVeterinaria(): void {
     console.log("Eliminar veterinaria");
     const idBorrar = rs.questionInt("Ingre el id de veterinaria que desea eliminar: ");
-    const recordIndex = this.veterinaria.findIndex((veterinaria)=> veterinaria.id === idBorrar);
-    if(recordIndex !== -1){
+    const recordIndex = this.veterinaria.findIndex((veterinaria) => veterinaria.id === idBorrar);
+    if (recordIndex !== -1) {
       const eliminar = this.veterinaria[recordIndex];
-      const confirmacion = rs.keyInYN (`Quieres eliminar ${eliminar.id}? (Y/N)`);
-      if(confirmacion){
+      const confirmacion = rs.keyInYN(`Quieres eliminar ${eliminar.id}? (Y/N)`);
+      if (confirmacion) {
         this.veterinaria.splice(recordIndex, 1);
         funVeterinaria.agregarVeterinaria(this.veterinaria);
-      } else{
+      } else {
         console.log("Eliminacion cancelada. \n")
       }
     }
@@ -271,27 +271,35 @@ leerSucursales(){
 
   //VETERINARIA
 
+  //PACIENTES
+
+  altaPaciente(): void {
+    console.log("Nuevo paciente.");
+
+    const idCliente = rs.questionInt("Ingrese el ID del cliente: ");
+    const clienteExistente = this.clientes.some(p => p.idCliente === idCliente);
+
+    if (clienteExistente) {
+      let especie = rs.question("Que especie es?: ");
+      let nombre = rs.question("Cual essu nombre?: ");
+
+      if (especie !== "perro" && especie !== "gato") {
+        especie = "exotica";
+      }
+      const nuevoPaciente = new Paciente();
+      this.pacientes.push(nuevoPaciente);
+
+      console.log("Paciente creado correctamente.", this.pacientes);
+    } else {
+      console.log("Error inesperado...");
+    }
+    funPaciente.agregarPaciente(this.pacientes);
+  };
+
+  modificarPPacientes() {
+
+  };
+
+
 }
 
-const suc = new SucursalVeterinaria("vet", "Direccion 123");
-const veterinaria01 = new Veterinaria("vetterinaria01", "Direccion 123");
-suc.agregarVeterinaria();
-suc.agregarCliente();
-
-
-
-
-// suc.agregarVeterinaria();
-// suc.modificarVeterinaria();
-// suc.eliminarVeterinaria();
-
-
-
-
-
-// const cliente01 = new Cliente(0, "", "");
-// suc.agregarCliente();
-// const paciente01 = new Paciente();
-// paciente01.altaPaciente("","","");
-// const prov01 = new Proveedor("","");
-// suc.agregarProveedor();

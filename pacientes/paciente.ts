@@ -44,33 +44,33 @@ export class Paciente {
         return nuevoId;
     };
 
-    altaPaciente(nombre: string, especie: string): void {
-        console.log("Nuevo paciente.");
+    // altaPaciente(): void {
+    //     console.log("Nuevo paciente.");
 
-        const idCliente = rs.questionInt("Ingrese el ID del cliente: ");
-        const clienteExistente = this.pacientes.some(p => p.idCliente === idCliente);
+    //     const idCliente = rs.questionInt("Ingrese el ID del cliente: ");
+    //     const clienteExistente = this.clientes.some(p => p.idCliente === idCliente);
 
-        if (clienteExistente) {
-            let especie = rs.question("Que especie es?: ");
-            let nombre = rs.question("Cual essu nombre?: ");
+    //     if (clienteExistente) {
+    //         let especie = rs.question("Que especie es?: ");
+    //         let nombre = rs.question("Cual essu nombre?: ");
 
-            if (especie !== "perro" && especie !== "gato") {
-                especie = "exotica";
-            }
-            const nuevoPaciente = {
-                id: this.generarIdUnico(),
-                nombre,
-                especie,
-                idCliente,
+    //         if (especie !== "perro" && especie !== "gato") {
+    //             especie = "exotica";
+    //         }
+    //         const nuevoPaciente = {
+    //             id: this.generarIdUnico(),
+    //             nombre,
+    //             especie,
+    //             idCliente,
 
-            };
-            this.pacientes.push(nuevoPaciente);
-            this.guardarPacientesEnArchivo();
-            console.log("Paciente creado correctamente.");
-        } else {
-            console.log("Error: ID del cliente no encontrado.");
-        };
-    };
+    //         };
+    //         this.pacientes.push(nuevoPaciente);
+    //         this.guardarPacientesEnArchivo();
+    //         console.log("Paciente creado correctamente.");
+    //     } else {
+    //         console.log("Error: ID del cliente no encontrado.");
+    //     };
+    // };
 
     modificarPacienteId(idPaciente: number,) {
         console.log("Modificar paciente.");
@@ -120,21 +120,21 @@ export class Paciente {
 
 
 }
-const cliente01 = new Cliente(0,"","");
-cliente01.idCliente; 
-const mascota1 = new Paciente();
-mascota1.altaPaciente("", "");
-console.log(mascota1)
-mascota1.modificarPacienteId(0);
-console.log(mascota1)
-mascota1.bajaPacienteId(0);
-console.log(mascota1);
-const mascota2 = new Paciente();
-mascota2.altaPaciente("", "");
-console.log(mascota2);
-const mascota3 = new Paciente();
-mascota3.altaPaciente("", "");
-console.log(mascota3);
+// const cliente01 = new Cliente(0,"","");
+// cliente01.idCliente; 
+// const mascota1 = new Paciente();
+// mascota1.altaPaciente();
+// console.log(mascota1)
+// mascota1.modificarPacienteId(0);
+// console.log(mascota1)
+// mascota1.bajaPacienteId(0);
+// console.log(mascota1);
+// const mascota2 = new Paciente();
+// mascota2.altaPaciente();
+// console.log(mascota2);
+// const mascota3 = new Paciente();
+// mascota3.altaPaciente();
+// console.log(mascota3);
 
 
 

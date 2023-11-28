@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SucursalVeterinaria = void 0;
-//Todas las funciones van aca
-var fs = require("node:fs");
 var rs = require("readline-sync");
 var cliente_1 = require("../clientes/cliente");
+var paciente_1 = require("../pacientes/paciente");
 var proveedor_1 = require("../proveedores/proveedor");
 var veterinaria_1 = require("../veterinas/veterinaria");
+var funPaciente_1 = require("../pacientes/funPaciente");
 var funCliente_1 = require("../clientes/funCliente");
 var funProveedor_1 = require("../proveedores/funProveedor");
 var funVeterinaria_1 = require("../veterinas/funVeterinaria");
@@ -36,9 +36,8 @@ var SucursalVeterinaria = /** @class */ (function () {
     // CLIENTE
     SucursalVeterinaria.prototype.leerCliente = function () {
         try {
-            var leerCliente = fs.readFileSync("./clientes/cliente.json", { encoding: "utf-8" });
+            var leerCliente = funCliente_1.funClientes.leerCliente;
             if (leerCliente) {
-                this.clientes = JSON.parse(leerCliente);
                 console.log("Clientes.");
                 if (!this.clientes.length) {
                     console.log("No se encontraron clientes.");
@@ -56,9 +55,8 @@ var SucursalVeterinaria = /** @class */ (function () {
     };
     SucursalVeterinaria.prototype.agregarCliente = function () {
         console.log("Nuevo cliente.");
-        var leerClientes = fs.readFileSync("./clientes/cliente.json", { encoding: "utf-8" });
+        var leerClientes = funCliente_1.funClientes.leerCliente;
         if (leerClientes) {
-            this.clientes = JSON.parse(leerClientes);
             var idCliente = this.generarIdUnico();
             var nombre = rs.question("Ingrese el nombre: ");
             var telefono = rs.question("Ingrese el numero telefomnico");
@@ -115,9 +113,8 @@ var SucursalVeterinaria = /** @class */ (function () {
     //CLIENTE
     //PROVEEDOR
     SucursalVeterinaria.prototype.leerProvedoores = function () {
-        var leerProvedoores = fs.readFileSync("./proveedores/proveedor.json", { encoding: "utf-8" });
+        var leerProvedoores = funProveedor_1.funProveedor.leerProveedor;
         if (leerProvedoores) {
-            this.proveedores = JSON.parse(leerProvedoores);
             console.log("Proveedores.");
             if (!this.proveedores.length) {
                 console.log("No se encontraron proveedores.");
@@ -134,9 +131,8 @@ var SucursalVeterinaria = /** @class */ (function () {
     ;
     SucursalVeterinaria.prototype.agregarProveedor = function () {
         console.log("Nuevo proveedor.");
-        var leerProvedoores = fs.readFileSync("./proveedores/proveedor.json", { encoding: "utf-8" });
+        var leerProvedoores = funProveedor_1.funProveedor.leerProveedor;
         if (leerProvedoores) {
-            this.proveedores = JSON.parse(leerProvedoores);
             var id = this.generarIdUnico();
             var nombre = rs.question("Ingrese el nombre: ");
             var telefono = rs.question("Ingrese el telefono del proveedor: ");
@@ -190,9 +186,8 @@ var SucursalVeterinaria = /** @class */ (function () {
     //PROVEEDOR
     //VETERINARIA
     SucursalVeterinaria.prototype.leerVeterinaria = function () {
-        var leerVeterinaria = fs.readFileSync("./veterinas/veterinaria.json", { encoding: "utf-8" });
+        var leerVeterinaria = funVeterinaria_1.funVeterinaria.leerVeterinaria;
         if (leerVeterinaria) {
-            this.veterinaria = JSON.parse(leerVeterinaria);
             console.log("VETERINARIAS.");
             if (!this.veterinaria.length) {
                 console.log("No se encontraron  veterinarias.");
@@ -212,9 +207,8 @@ var SucursalVeterinaria = /** @class */ (function () {
     ;
     SucursalVeterinaria.prototype.agregarVeterinaria = function () {
         console.log("Nueva veterinaria.");
-        var leerVeterinaria = fs.readFileSync("./veterinarias/veterinaria.json", { encoding: "utf-8" });
+        var leerVeterinaria = funVeterinaria_1.funVeterinaria.leerVeterinaria;
         if (leerVeterinaria) {
-            this.veterinaria = JSON.parse(leerVeterinaria);
             var id = this.generarIdUnico();
             var nombre = rs.question("Ingrese el nombre de VETERINARIA: ");
             var direccion = rs.question("Ingrese la direccion");
@@ -263,19 +257,31 @@ var SucursalVeterinaria = /** @class */ (function () {
         }
     };
     ;
+    //VETERINARIA
+    //PACIENTES
+    SucursalVeterinaria.prototype.altaPaciente = function () {
+        console.log("Nuevo paciente.");
+        var idCliente = rs.questionInt("Ingrese el ID del cliente: ");
+        var clienteExistente = this.clientes.some(function (p) { return p.idCliente === idCliente; });
+        if (clienteExistente) {
+            var especie = rs.question("Que especie es?: ");
+            var nombre = rs.question("Cual essu nombre?: ");
+            if (especie !== "perro" && especie !== "gato") {
+                especie = "exotica";
+            }
+            var nuevoPaciente = new paciente_1.Paciente();
+            this.pacientes.push(nuevoPaciente);
+            console.log("Paciente creado correctamente.", this.pacientes);
+        }
+        else {
+            console.log("Error inesperado...");
+        }
+        funPaciente_1.funPaciente.agregarPaciente(this.pacientes);
+    };
+    ;
+    SucursalVeterinaria.prototype.modificarPPacientes = function () {
+    };
+    ;
     return SucursalVeterinaria;
 }());
 exports.SucursalVeterinaria = SucursalVeterinaria;
-var suc = new SucursalVeterinaria("vet", "Direccion 123");
-var veterinaria01 = new veterinaria_1.Veterinaria("vetterinaria01", "Direccion 123");
-suc.agregarVeterinaria();
-suc.agregarCliente();
-// suc.agregarVeterinaria();
-// suc.modificarVeterinaria();
-// suc.eliminarVeterinaria();
-// const cliente01 = new Cliente(0, "", "");
-// suc.agregarCliente();
-// const paciente01 = new Paciente();
-// paciente01.altaPaciente("","","");
-// const prov01 = new Proveedor("","");
-// suc.agregarProveedor();
